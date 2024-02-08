@@ -1,0 +1,16 @@
+.draggableSlide {
+    margin-right: 1rem;
+    overflow: hidden;
+    border-radius: 2rem;
+    background-color: white;
+    user-select: none;
+    pointer-events: none;
+}
+
+.dsContent {
+    padding: 1em;
+}
+
+.dsImage {
+    width: 100%;
+}

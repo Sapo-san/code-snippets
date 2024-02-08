@@ -1,0 +1,15 @@
+.draggableSlidesContainer {
+    width: 90%;
+    overflow: hidden;
+}
+
+.draggableSlides {
+    width: 200%;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0;
+    grid-row-gap: 1rem;
+    position: relative;
+    left: 0;
+}
