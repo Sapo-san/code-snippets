@@ -1,0 +1,32 @@
+.draggableSlidesContainer {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+}
+
+.draggableSlidesCenterer {
+    width: 200px;
+    overflow: visible;
+    background-color: rgb(130, 163, 255);
+    padding: 1rem 0 1rem 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.draggableSlides {
+    width: fit-content;
+    /* background-color: aqua; */
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0;
+    grid-row-gap: 1rem;
+    position: relative;
+    left: 0;
+}

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import DraggableSlidesContainer from "../components/DraggableSlidesContainer/DraggableSlidesContainer.vue";
+import DraggableSlidesContainer from "./components/DraggableSlidesContainer/DraggableSlidesContainer.vue";
 export default {
     name: "Draggable Slides",
     components: {
@@ -20,6 +20,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: rgb(182, 244, 255);
+    overflow: hidden;
 }
 
 .page {

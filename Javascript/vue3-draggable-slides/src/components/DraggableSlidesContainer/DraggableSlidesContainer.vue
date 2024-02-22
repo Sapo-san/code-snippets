@@ -1,19 +1,24 @@
 <template>
     <div class="draggableSlidesContainer">
-        <div
-            class="draggableSlides"
-            @mousedown="startDrag"
-            @mouseup="stopDrag"
-            @mousemove="dragSlides"
-            :style="`left: ${left}px;`"
-            ref="draggableSlides"
-        >
-            <DraggableSlide
-                v-for="slide in slides"
-                :image="sampleImage"
-                :title="slide.title"
-                :text="slide.text"
-            ></DraggableSlide>
+        <div class="draggableSlidesCenterer">
+            <div
+                class="draggableSlides"
+                @mousedown="startDrag"
+                @mouseup="stopDrag"
+                @mousemove="dragSlides"
+                @touchstart="startDrag"
+                @touchend="stopDrag"
+                @touchmove="dragSlides"
+                :style="`left: ${left}px;`"
+                ref="draggableSlides"
+            >
+                <DraggableSlide
+                    v-for="slide in slides"
+                    :image="sampleImage"
+                    :title="slide.title"
+                    :text="slide.text"
+                ></DraggableSlide>
+            </div>
         </div>
     </div>
 </template>
@@ -31,6 +36,9 @@ export default {
     },
     mounted() {
         window.addEventListener("mouseup", () => {
+            this.dragging = false;
+        });
+        window.addEventListener("touchend", () => {
             this.dragging = false;
         });
     },
@@ -56,7 +64,17 @@ export default {
     methods: {
         startDrag(e) {
             this.dragging = true;
-            this.initialMousePos = e.offsetX;
+
+            if (e.type === "touchstart") {
+                // Get the position of the target element
+                const rect = this.$refs.draggableSlides.getBoundingClientRect();
+
+                // Calculate the relative position of the touch within the element
+                const touch = e.touches[0];
+                this.initialMousePos = touch.clientX - rect.left;
+            } else if (e.type === "mousedown") {
+                this.initialMousePos = e.offsetX;
+            }
         },
         stopDrag() {
             this.dragging = false;
@@ -65,18 +83,33 @@ export default {
             if (!this.dragging) return; // si no hay drag, terminar
 
             // Calculamos movimiento
-            this.amountToMoveContainer = e.offsetX - this.initialMousePos;
+            if (e.type.includes("touch")) {
+                // Caso Touch
+                const rect = this.$refs.draggableSlides.getBoundingClientRect();
+                const touch = e.touches[0];
+                let offsetX = touch.clientX - rect.left;
+
+                this.amountToMoveContainer = offsetX - this.initialMousePos;
+            } else if (e.type.includes("mouse")) {
+                // Caso Mouse
+                this.amountToMoveContainer = e.offsetX - this.initialMousePos;
+            }
 
             let newLeft = this.left + this.amountToMoveContainer;
+            console.log("newleft", newLeft);
 
             // Verificamos si está dentro de los limites
             let maxLimit = 0;
             let minLimit =
-                this.draggableSlides.getBoundingClientRect().width / -2;
+                this.draggableSlides.getBoundingClientRect().width * -1 +
+                200 + // Ancho de la slide en px
+                16; // margen y padding?
 
             if (newLeft <= maxLimit && newLeft >= minLimit) {
                 this.left = newLeft;
             }
+
+            console.log("left", this.left);
         },
     },
 };
