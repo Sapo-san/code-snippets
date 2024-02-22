@@ -96,7 +96,6 @@ export default {
             }
 
             let newLeft = this.left + this.amountToMoveContainer;
-            console.log("newleft", newLeft);
 
             // Verificamos si está dentro de los limites
             let maxLimit = 0;
@@ -108,8 +107,6 @@ export default {
             if (newLeft <= maxLimit && newLeft >= minLimit) {
                 this.left = newLeft;
             }
-
-            console.log("left", this.left);
         },
     },
 };
