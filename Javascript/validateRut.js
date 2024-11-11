@@ -10,7 +10,7 @@ function isValidRut(rut) {
     }
     
     // Verificamos que no contenga caracteres extraños
-    if (/[^0-9\\-]/gi.test(rut)) { 
+    if (/[^0-9k\\-]/gi.test(rut)) { 
         return false;
     }
 
