@@ -12,7 +12,7 @@ public class RutValidation {
         }
         
         // Verificamos que no contenga caracteres extraños
-        if (rut.matches("[^0-9\\-]")) { 
+        if (rut.matches("[^0-9kK\\-]")) { 
             return false;
         }
 
